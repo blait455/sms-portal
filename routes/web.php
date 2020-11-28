@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,6 @@ Route::get('/', function () {
 Route::get('/', 'HomeController@show');
 Route::post('/', 'HomeController@storePhoneNumber');
 Route::post('/custom', 'HomeController@sendCustomMessage');
+
+Route::get('/mail', 'MailController@index');
+Route::post('/send-email', 'MailController@sendEmail')->name('send-email');
