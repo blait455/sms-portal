@@ -7,30 +7,32 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\EmailDemo;
 use App\Mail\sendMail;
 use App\Message;
+use App\User;
+use Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class MailController extends Controller
 {
     public function index() {
-        return view('mail_form');
+        $users = User::all();
+
+        return view('mail_form', compact('users'));
     }
 
     public function sendEmail(Request $request) {
         $message = new Message;
-        $message->sender = $request->sender;
+        $message->sender = Auth::user()->email;
         $message->subject = $request->subject;
-        $message->receiver = $request->receiver;
-        $message->content = $request->content;
+        $message->receiver = $request->emails;
+        $message->body = $request->body;
         // dd($message);
 
-        $emails = ['me@email.com', 'you@email.com'];
+        // $emails = ['me@email.com', 'you@email.com'];
 
-        foreach ($emails as $mail) {
+        foreach ($request->emails as $email) {
             $data = $message;
-
-            Mail::to($mail)->send(new sendMail($data));
+            Mail::to($email)->send(new sendMail($data));
         }
-        $email = $message->receiver;
 
         return response()->json([
             'message' => 'Email has been sent.'

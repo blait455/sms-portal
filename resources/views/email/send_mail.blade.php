@@ -3,7 +3,7 @@
 
     The body of your message.
 
-    {{ $data['content'] }}
+    {{ $data['body'] }}
 
     Thanks,<br>
     {{ config('app.name') }}

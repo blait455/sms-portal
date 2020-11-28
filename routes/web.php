@@ -18,9 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', 'HomeController@show');
-Route::post('/', 'HomeController@storePhoneNumber');
-Route::post('/custom', 'HomeController@sendCustomMessage');
+Route::get('/sms', 'SmsController@index')->name('sms');
+Route::post('/sms', 'SmsController@storePhoneNumber');
+Route::post('/custom', 'SmsController@sendCustomMessage');
 
-Route::get('/mail', 'MailController@index');
-Route::post('/send-email', 'MailController@sendEmail')->name('send-email');
+Route::get('/mail', 'MailController@index')->name('mail');
+Route::post('/mail/send', 'MailController@sendEmail')->name('send-email');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -24,16 +24,16 @@
                             <div class="col">
                                 <div class="card">
                                     <div class="card-header">
-                                        Add To Mailing List
+                                        Add Phone Number
                                     </div>
                                     <div class="card-body">
                                         <form method="POST">
                                             @csrf
                                             <div class="form-group">
-                                                <label>Enter email</label>
-                                                <input type="email" class="form-control" name="email" placeholder="Enter email">
+                                                <label>Enter Phone Number</label>
+                                                <input type="tel" class="form-control" name="phone_number" placeholder="Enter Phone Number">
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Register email</button>
+                                            <button type="submit" class="btn btn-primary">Register User</button>
                                         </form>
                                     </div>
                                 </div>
@@ -41,22 +41,18 @@
                             <div class="col">
                                 <div class="card">
                                     <div class="card-header">
-                                        Send e-mail Message
+                                        Send SMS message
                                     </div>
                                     <div class="card-body">
-                                        <form method="POST" action="{{ route('send-email') }}">
+                                        <form method="POST" action="/custom">
                                             @csrf
                                             <div class="form-group">
                                                 <label>Select users to notify</label>
-                                                <select name="emails[]" multiple class="form-control">
+                                                <select name="users[]" multiple class="form-control">
                                                     @foreach ($users as $user)
-                                                    <option>{{$user->email}}</option>
+                                                    <option>{{$user->phone_number}}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Mail title</label>
-                                                <input name="subject" placeholder="mail subject" type="text" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label>Notification Message</label>
