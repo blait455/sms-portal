@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\MailingList;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -64,6 +65,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        MailingList::create([
+            'email' => $data['email'],
+        ]);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

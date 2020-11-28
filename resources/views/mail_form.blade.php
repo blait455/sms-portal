@@ -27,7 +27,7 @@
                                         Add To Mailing List
                                     </div>
                                     <div class="card-body">
-                                        <form method="POST">
+                                        <form method="POST" action="{{ route('add-mail-list') }}">
                                             @csrf
                                             <div class="form-group">
                                                 <label>Enter email</label>
@@ -49,8 +49,8 @@
                                             <div class="form-group">
                                                 <label>Select users to notify</label>
                                                 <select name="emails[]" multiple class="form-control">
-                                                    @foreach ($users as $user)
-                                                    <option>{{$user->email}}</option>
+                                                    @foreach ($emails as $email)
+                                                    <option>{{$email->email}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

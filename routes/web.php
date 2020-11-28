@@ -23,6 +23,7 @@ Route::post('/sms', 'SmsController@storePhoneNumber');
 Route::post('/custom', 'SmsController@sendCustomMessage');
 
 Route::get('/mail', 'MailController@index')->name('mail');
+Route::post('mail-list', 'MailController@mailingListStore')->name('add-mail-list');
 Route::post('/mail/send', 'MailController@sendEmail')->name('send-email');
 
 Auth::routes();

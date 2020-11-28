@@ -5,6 +5,6 @@
 
     {{ $data['body'] }}
 
-    Thanks,<br>
+    Thanks,
     {{ config('app.name') }}
 @endcomponent

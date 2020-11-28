@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EmailDemo;
+use App\Mail\mailingList as MailMailingList;
 use App\Mail\sendMail;
+use App\MailingList;
 use App\Message;
 use App\User;
 use Auth;
@@ -14,9 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 class MailController extends Controller
 {
     public function index() {
-        $users = User::all();
+        $emails = MailingList::all();
 
-        return view('mail_form', compact('users'));
+        return view('mail_form', compact('emails'));
     }
 
     public function sendEmail(Request $request) {
@@ -34,11 +36,14 @@ class MailController extends Controller
             Mail::to($email)->send(new sendMail($data));
         }
 
-        return response()->json([
-            'message' => 'Email has been sent.'
-        ], Response::HTTP_OK);
+        // return response()->json([
+        //     'message' => 'Email has been sent.'
+        // ], Response::HTTP_OK);
 
+        return redirect()->back();
+    }
 
+    public function scheduleMail() {
         // $dateH = date('H:i');
         // if(date('w')==0){
         //     $dateW = 7;
@@ -57,5 +62,14 @@ class MailController extends Controller
         //         Mail::to($user->email)->send(new SendMail($data));
         //     }
         // }
+    }
+
+    public function mailingListStore(Request $request) {
+        MailingList::create([
+            'email'  =>  $request['email'],
+        ]);
+        Mail::to($request->email)->send(new MailMailingList);
+
+        return redirect()->back();
     }
 }
